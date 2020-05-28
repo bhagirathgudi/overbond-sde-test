@@ -25,14 +25,18 @@ public class Application {
             }
             FileReader fileReader = new FileReader(new File(Application.class
                     .getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParent()+ "/" + args[0]);
+            
             ObjectMapper objectMapper = new ObjectMapper();
             Input inputItem = objectMapper.readValue(fileReader, Input.class);
+            
             Map<String, List<Data>> typeMap = inputItem.getDataList().stream()
                     .filter(item -> !(StringUtils.isEmpty(item.getId()) ||
                         StringUtils.isEmpty(item.getTenor()) || StringUtils.isEmpty(item.getType()) ||
                         StringUtils.isEmpty(item.getYield())))
                     .collect(groupingBy(Data::getType));
+            
             Output output = new Output();
+            
             for(Data corporateItem: typeMap.get("corporate")) {
 
                 Float corporateTenor = Float.parseFloat(corporateItem.getTenor().split(" ")[0]);
@@ -75,6 +79,7 @@ public class Application {
                         }
                     }
                 }
+                
                 String spread = String.format("%.0f", (Float
                         .parseFloat(corporateItem.getYield().substring(0, corporateItem.getYield().length() - 1))
                         - Float.parseFloat(selectedGovtObj.getYield().substring(0, selectedGovtObj.getYield()
