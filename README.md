@@ -19,6 +19,6 @@ To run the application using docker, run the following commands in project direc
 First command will build the docker image, first by building a jar from the source code and then adding it to entry point.
 Second command will run the docker image.
 
-###Exceptions
+### Exceptions
 - NoArgumentsException : The application needs two arguments to run. So, this exception will be thrown if zero arguments or less than zero are provided.
 - IOException : This exception is thrown if a invalid json file is provided as input to the application.
